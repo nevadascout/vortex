@@ -1,20 +1,28 @@
-# vortex
-An open-source scriptable pull request build bot
+# Vortex - The Vision
+An open source scriptable framework for your CI/CD solution.
 
-Build steps are custom scripts which can either be placed into a separate repo, or within the repo being tested
+All build steps are fully scriptable and are placed within your project repository.
 
-## Overview
-**Architecture**
-1. User sets up webhook call on new PR being created within BitBucket/GitHub/GitLab
-2. Vortex queues a new build for the PR at the appropriate commit
-3. Vortex runs the build, checking out the required commit
-    - Checkout the repository (limited history)
-    - Load the vortex build config file
-    - Run the pre-build script
-    - Run the build steps
-    - Run the post-build script
-    - Finish
-4. Vortex reports back the build status on the PR in comments
+## 1. Management Area
+
+ - PHP app that handles queuing of builds triggered by webhooks, an API or manually
+ - Web interface for viewing builds
+ - Sign in with BitBucket or GitHub
+ - Documentation for builds API and how to write build steps
+
+
+## 2. Build Runner Manager
+
+ - A simple app that sits on a host machine
+ - Listens to a message queue
+ - Creates a docker container for each build
+
+
+## 3. Build Runner
+
+ - Lives within a docker image
+ - Clones the repository
+ - Reads the build config and triggers the build scripts
 
 
 
@@ -24,7 +32,7 @@ Build steps are custom scripts which can either be placed into a separate repo, 
  - bitbucket/github/gitlab account (for making comments, approving, etc)
  - app root path
  - build steps repo
- - build steps repo credentials (account or ssh key)
+ - project repo credentials (account or ssh key)
 
 ### In vortex.json
  - build steps (which order, which parellel, etc)
